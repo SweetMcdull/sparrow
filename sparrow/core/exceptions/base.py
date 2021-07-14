@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    base
+    自定义HTTPException异常基类
     ~~~~~~~~~
     base is useful.
 
@@ -18,18 +18,22 @@ class APIException(HTTPException):
 
 
 class InternalServerError(APIException):
-    code = 500
-    message = "Internal Server Error"
     message_code = 10001
 
 
 class Forbidden(APIException):
-    code = 401
+    code = 403
     message = "Forbidden"
-    message_code = 10070
+    message_code = 10002
 
 
 class MethodNotAllowed(APIException):
-    code = 401
+    code = 405
     message = "Method Not Allowed"
-    message_code = 10080
+    message_code = 10003
+
+
+class NotFound(APIException):
+    code = 404
+    message = "Not Found"
+    message_code = 10004
