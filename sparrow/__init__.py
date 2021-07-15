@@ -7,9 +7,9 @@
 
     Created by lemon on 2021/7/13.
 """
-from dotenv import load_dotenv
 from flask import Flask
 
+from sparrow.config.settings import Config
 from sparrow.endpoint import create_blueprint_v1
 from sparrow.extention.sqlalchemy import db
 
@@ -29,10 +29,10 @@ def apply_cors(app, **kwargs):
 
 
 def load_app_config(app: Flask):
-    # 读取 .env
-    load_dotenv(".env")
+    # Gunicorn启动不会自动读取 .env，需要显示读取env配置
+    # load_dotenv(".env")
     # 读取配置类
-    app.config.from_object("sparrow.config.settings.Config")
+    app.config.from_mapping(Config(_env_file='.env', _env_file_encoding='utf-8').dict())
 
 
 def create_app() -> Flask:
